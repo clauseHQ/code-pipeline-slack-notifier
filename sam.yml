@@ -20,6 +20,7 @@ Resources:
         Variables:
           SLACK_URL:
             Ref: SlackUrl
+          NODE_ENV: development
       Events:
         CodePipelineEvent:
           Type: CloudWatchEvent
@@ -29,3 +30,12 @@ Resources:
               - aws.codepipeline
               detail-type:
               - CodePipeline Pipeline Execution State Change
+          EventPattern:
+            source:
+            - aws.codepipeline
+            detail-type:
+            - CodePipeline Pipeline Execution State Change
+            detail:
+              state:
+              - FAILED
+              - SUCCEEDED
